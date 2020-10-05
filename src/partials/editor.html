@@ -4,7 +4,7 @@
     <div class="gf-form">
       <label class="gf-form-label width-10">Center</label>
       <div class="gf-form-select-wrapper max-width-10">
-        <select class="input-small gf-form-input" ng-model="ctrl.panel.mapCenter" ng-options="t for t in ['(0°, 0°)', 'North America', 'Europe', 'West Asia', 'SE Asia', 'custom', 'Last GeoHash']"
+        <select class="input-small gf-form-input" ng-model="ctrl.panel.mapCenter" ng-options="t for t in ctrl.mapCenters"
           ng-change="ctrl.setNewMapCenter()"></select>
       </div>
       <div class="gf-form" ng-show="ctrl.panel.mapCenter === 'custom'">
@@ -42,6 +42,11 @@
         ng-change="ctrl.render()" ng-model-onblur />
       <input type="text" class="input-small gf-form-input width-10" ng-model="ctrl.panel.unitPlural" placeholder="plural form"
         ng-change="ctrl.render()" ng-model-onblur />
+    </div>
+    <div class="gf-form">
+      <label class="gf-form-label width-10">TileServer</label>
+      <input type="text" class="input-small gf-form-input width-10" ng-model="ctrl.panel.tileServer" ng-change="ctrl.render()"
+        placeholder="Default" ng-model-onblur />
     </div>
     <gf-form-switch class="gf-form" label="Show Legend" label-class="width-10" checked="ctrl.panel.showLegend" on-change="ctrl.toggleLegend()"></gf-form-switch>
     <gf-form-switch class="gf-form" label="Mouse Wheel Zoom" label-class="width-10" checked="ctrl.panel.mouseWheelZoom" on-change="ctrl.toggleMouseWheelZoom()"></gf-form-switch>

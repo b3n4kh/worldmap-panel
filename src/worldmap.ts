@@ -2,23 +2,6 @@ import * as _ from 'lodash';
 import * as L from './libs/leaflet';
 import WorldmapCtrl from './worldmap_ctrl';
 
-const tileServers = {
-  'CartoDB Positron': {
-    url: 'https://cartodb-basemaps-{s}.global.ssl.fastly.net/light_all/{z}/{x}/{y}.png',
-    attribution:
-      '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a> ' +
-      '&copy; <a href="http://cartodb.com/attributions">CartoDB</a>',
-    subdomains: 'abcd',
-  },
-  'CartoDB Dark': {
-    url: 'https://cartodb-basemaps-{s}.global.ssl.fastly.net/dark_all/{z}/{x}/{y}.png',
-    attribution:
-      '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a> ' +
-      '&copy; <a href="http://cartodb.com/attributions">CartoDB</a>',
-    subdomains: 'abcd',
-  },
-};
-
 export default class WorldMap {
   ctrl: WorldmapCtrl;
   mapContainer: any;
@@ -46,7 +29,7 @@ export default class WorldMap {
     });
     this.setMouseWheelZoom();
 
-    const selectedTileServer = tileServers[this.ctrl.tileServer];
+    const selectedTileServer = this.ctrl.getTileServer();
     (<any>window).L.tileLayer(selectedTileServer.url, {
       maxZoom: 18,
       subdomains: selectedTileServer.subdomains,

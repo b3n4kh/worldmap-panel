@@ -33,6 +33,7 @@ const panelDefaults = {
   decimals: 0,
   hideEmpty: false,
   hideZero: false,
+  tileServer: "Default",
   stickyLabels: false,
   tableQueryOptions: {
     queryType: "geohash",
@@ -58,6 +59,7 @@ export default class WorldmapCtrl extends MetricsPanelCtrl {
   dataFormatter: DataFormatter;
   locations: any;
   tileServer: string;
+  tileServerData: any;
   saturationClass: string;
   map: any;
   series: any;
@@ -82,17 +84,20 @@ export default class WorldmapCtrl extends MetricsPanelCtrl {
   }
 
   setMapProvider(contextSrv) {
-    this.tileServer = contextSrv.user.lightTheme
-      ? "CartoDB Positron"
-      : "CartoDB Dark";
-    this.setMapSaturationClass();
+    if (this.panel.tileServer  === 'Default') {
+      this.tileServer = contextSrv.user.lightTheme
+        ? "CartoDB Positron"
+        : "CartoDB Dark";
+    } else {
+      this.tileServer = this.panel.tileServer;
+    }
+    this.setMapSaturationClass(contextSrv);
   }
 
-  setMapSaturationClass() {
-    if (this.tileServer === "CartoDB Dark") {
+  setMapSaturationClass(contextSrv) {
+    this.saturationClass = "";
+    if (contextSrv.user.lightTheme) {
       this.saturationClass = "map-darken";
-    } else {
-      this.saturationClass = "";
     }
   }
 
@@ -143,6 +148,27 @@ export default class WorldmapCtrl extends MetricsPanelCtrl {
           ".json"
       ).then(this.reloadLocations.bind(this));
     }
+  }
+
+  getTileServer() {
+    this.loadTileServersFromFile();
+    return this.tileServerData[this.tileServer];
+  }
+
+  loadTileServersFromFile(reload?) {
+    if (this.map && !reload) {
+      return;
+    }
+
+    $.getJSON(
+      "public/plugins/grafana-worldmap-panel/data/server.json"
+      // + this.tileServer + ".json"
+    ).then(this.reloadTileServer.bind(this));
+  }
+
+  reloadTileServer(res) {
+    this.tileServerData = res;
+    // this.refresh();
   }
 
   reloadLocations(res) {
@@ -247,6 +273,10 @@ export default class WorldmapCtrl extends MetricsPanelCtrl {
     }
     this.mapCenterMoved = true;
     this.render();
+  }
+
+  getMapCenters() {
+    return mapCenters;
   }
 
   setZoom() {
