@@ -47,7 +47,7 @@ const panelDefaults = {
 const mapCenters = {
   "(0°, 0°)": { mapCenterLatitude: 0, mapCenterLongitude: 0 },
   "North America": { mapCenterLatitude: 40, mapCenterLongitude: -100 },
-  Europe: { mapCenterLatitude: 46, mapCenterLongitude: 14 },
+  "Europe": { mapCenterLatitude: 46, mapCenterLongitude: 14 },
   "West Asia": { mapCenterLatitude: 26, mapCenterLongitude: 53 },
   "SE Asia": { mapCenterLatitude: 10, mapCenterLongitude: 106 },
   "Last GeoHash": { mapCenterLatitude: 0, mapCenterLongitude: 0 }
@@ -167,6 +167,7 @@ export default class WorldmapCtrl extends MetricsPanelCtrl {
   }
 
   reloadTileServer(res) {
+    console.log(res);
     this.tileServerData = res;
     // this.refresh();
   }
@@ -276,7 +277,7 @@ export default class WorldmapCtrl extends MetricsPanelCtrl {
   }
 
   getMapCenters() {
-    return mapCenters;
+    return Object.keys(mapCenters);
   }
 
   setZoom() {

@@ -10,11 +10,5 @@
         "url": "https://cartodb-basemaps-{s}.global.ssl.fastly.net/dark_all/{z}/{x}/{y}.png",
         "attribution": "&copy; <a href=\"http://www.openstreetmap.org/copyright\">OpenStreetMap</a> &copy; <a href=\"http://cartodb.com/attributions\">CartoDB</a>",
         "subdomains": "abcd"
-    },
-    "SMN Mapserver": {
-        "key": "SMN Mapserver",
-        "url": "https://mapserver.3ve.bmlv.at/gwc/service/tms/1.0.0/30_topo%3Acollins_world_continent@png/{z}/{x}/{-y}.png",
-        "attribution": "&copy; <a href=\"https://mapserver.3ve.bmlv.at\">SMN Mapserver</a>",
-        "subdomains": "0"
     }
 }
